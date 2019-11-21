@@ -34,7 +34,11 @@
 	<build>
 		<plugins>
 		
-		<!-- Tomcat Maven Plugin  -->
+		<!-- Tomcat Maven Plugin  
+		Maven goal (build lifecycle: compile, test, package, install, deploy.
+		Tomcat Maven 
+		-->
+		
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
 					<artifactId>tomcat7-maven-plugin</artifactId>
