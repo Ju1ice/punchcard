@@ -1,4 +1,4 @@
-package punchcardcom.skillstorm.data;
+package com.skillstorm.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

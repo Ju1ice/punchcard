@@ -6,6 +6,18 @@
 	
 	
 	<display-name>punchcard</display-name>
+		<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
 	
 	<!--  Front Controller -->
+	<servlet>
+	<servlet-name>front</servlet-name>
+	<servlet-class>com.skillstorm.controllers.FrontController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	<servlet-name>front</servlet-name>
+	<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
 </web-app>
