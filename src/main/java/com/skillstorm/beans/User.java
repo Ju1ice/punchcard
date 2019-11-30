@@ -2,24 +2,44 @@ package com.skillstorm.beans;
 
 public class User {
 	
-	private int userId;
-	private String userFN;
-	private String userLN;
-	private String userRoleId;
-	private String jobId;
-	private String password;
+	private int userId = 0;
+	private String userFN = "";
+	private String userLN = "";
+	private int userRoleId = 0;
+	private String username = "";
+	private int jobId = 0;
+	private String password = "";
 	
-	public User(int userId, String userFN, String userLN, String userRoleId, String jobId, String password) {
+	public User(int userId, String userFN, String userLN, String username, String password, int userRoleId, int jobId) {
 		super();
 		this.userId = userId;
 		this.userFN = userFN;
 		this.userLN = userLN;
 		this.userRoleId = userRoleId;
+		this.username = username;
 		this.jobId = jobId;
 		this.password = password;
 	}
 	
 	
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public int getUserId() {
 		return userId;
@@ -57,25 +77,25 @@ public class User {
 
 
 
-	public String getUserRoleId() {
+	public int getUserRoleId() {
 		return userRoleId;
 	}
 
 
 
-	public void setUserRoleId(String userRoleId) {
+	public void setUserRoleId(int userRoleId) {
 		this.userRoleId = userRoleId;
 	}
 
 
 
-	public String getJobId() {
+	public int getJobId() {
 		return jobId;
 	}
 
 
 
-	public void setJobId(String jobId) {
+	public void setJobId(int jobId) {
 		this.jobId = jobId;
 	}
 
@@ -97,12 +117,13 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((jobId == null) ? 0 : jobId.hashCode());
+		result = prime * result + jobId;
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((userFN == null) ? 0 : userFN.hashCode());
 		result = prime * result + userId;
 		result = prime * result + ((userLN == null) ? 0 : userLN.hashCode());
-		result = prime * result + ((userRoleId == null) ? 0 : userRoleId.hashCode());
+		result = prime * result + userRoleId;
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -117,10 +138,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (jobId == null) {
-			if (other.jobId != null)
-				return false;
-		} else if (!jobId.equals(other.jobId))
+		if (jobId != other.jobId)
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -139,10 +157,12 @@ public class User {
 				return false;
 		} else if (!userLN.equals(other.userLN))
 			return false;
-		if (userRoleId == null) {
-			if (other.userRoleId != null)
+		if (userRoleId != other.userRoleId)
+			return false;
+		if (username == null) {
+			if (other.username != null)
 				return false;
-		} else if (!userRoleId.equals(other.userRoleId))
+		} else if (!username.equals(other.username))
 			return false;
 		return true;
 	}
@@ -152,7 +172,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userFN=" + userFN + ", userLN=" + userLN + ", userRoleId=" + userRoleId
-				+ ", jobId=" + jobId + ", password=" + password + "]";
+				+ ", username=" + username + ", jobId=" + jobId + ", password=" + password + "]";
 	}
 	
 	

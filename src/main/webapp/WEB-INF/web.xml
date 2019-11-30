@@ -7,10 +7,10 @@
 	
 	<display-name>punchcard</display-name>
 		<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>/login.html</welcome-file>
 	</welcome-file-list>
 	
-	<!--  Front Controller -->
+	<!--  Front Controller	 -->
 	<servlet>
 	<servlet-name>front</servlet-name>
 	<servlet-class>com.skillstorm.controllers.FrontController</servlet-class>
@@ -18,6 +18,25 @@
 	
 	<servlet-mapping>
 	<servlet-name>front</servlet-name>
-	<url-pattern>/api/*</url-pattern>
+	<url-pattern>/yourtime/*</url-pattern>
 	</servlet-mapping>
+
+	
+	
+	<!--  Filter   	
+	 <filter>
+		<filter-name>auth</filter-name>
+		<filter-class>com.skillstorm.controllers.AuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>auth</filter-name>
+		<url-pattern>/yourtime/</url-pattern>
+	</filter-mapping> 
+-->
+	
+
+	<session-config>
+ 	<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+
 </web-app>

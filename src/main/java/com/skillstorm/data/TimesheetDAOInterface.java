@@ -6,11 +6,9 @@ import com.skillstorm.beans.Timesheet;
 import com.skillstorm.beans.User;
 
 public interface TimesheetDAOInterface {
-	
-	public User findByUsername(String username);
-	public List<Timesheet> findTimesheetByUser(int id);
-	public Timesheet findTimesheetById(int id);
-	public void save(Timesheet t);
-	public void update(Timesheet t);
-
+	public List<Timesheet> findById(int id);
+	public Timesheet findOne(int tid);
+	public Timesheet addTimesheet(Timesheet t, int id);
+	public User checkUser(String username, String password);
+	void updateTimesheet(Timesheet t, int tid);
 }

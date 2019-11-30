@@ -1,16 +1,212 @@
-<html>
-    <body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <form id="login">
-            <input type="text" name="username" id="username" placeholder="Username" /><br>
-            <input type="password" name="password" id="password" placeholder="Password"/><br>
-            <input type="submit" value="Add" />
-        </form>
-    </body>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://localhost:8080/punchcard/style.css">
+    <title>Hello, world!</title>
+  </head>
+  <body>
+      <div class="container">
+          <div class="row">
+              <div class="col-sm">
+    <h1>Hello, world!</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Monday</th>
+            <th scope="col">Tuesday</th>
+            <th scope="col">Wednesday</th>
+            <th scope="col">Thursday</th>
+            <th scope="col">Friday</th>
+            <th scope="col">Saturday</th>
+            <th scope="col">Sunday</th>
+            <th scope="col">Week End</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="list">
+          <tr>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>@mdo</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <script src="app.js">
-    
-    </script>
+
+      <button type="button" class="btn  btn-dark" data-toggle="modal" data-target=".bd-example-modal-lg">Add Timesheet</button>
+<!-- MODAL WITH ADD TIMESHEET FORM  -->
+      <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+<form id="addTimesheet">
+<input type="text" name="monday" id="monday" placeholder="Monday" />
+<input type="text" name="tuesday" id="tuesday" placeholder="Tuesday" />
+<input type="text" name="wednesday" id="wednesday" placeholder="Wednesday" />
+<input type="text" name="thursday" id="thursday" placeholder="Thursday" />
+<input type="text" name="friday" id="friday" placeholder="Friday" />
+<input type="text" name="saturday" id="saturday" placeholder="Saturday" />
+<input type="text" name="sunday" id="sunday" placeholder="Sunday" />
+<input type="text" name="weekend" id="weekend" placeholder="Week End" />
+<input type="submit" value="Add Timesheet" />
+</form>
+            </div>
+          </div>
+        </div>
+<!-- MODAL WITH ADD TIMESHEET FORM ENDS -->
+
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+
+
 <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
+
+
+
+<script>
+/****************   WHEN DOM LOADED   ***************/
+ document.addEventListener("DOMContentLoaded", function(){
+  var list;
+  console.log("Loaded");
+//use object mapper to access timesheet object
+let promise = axios.get('http://localhost:8080/punchcard/yourtime/timesheets/');
+// 1 callback for a successfull response
+promise.then(function(response){
+list = response.data;
+//console.log("List:" + JSON.stringify(list));
+convertTimesheet(list);
+});
+//another callbak for a failed response
+promise.catch(function(response){
+    console.log("FAILED: " +response)});
+});
+/****************   WHEN DOM LOADED ENDS    ***************/
+
+
+/****************   WHEN ADDING NEW TIMESHEET    ***************/
+document.getElementById("addTimesheet").addEventListener('submit', function(e){
+e.preventDefault(); //stops expecting a new page
+let timesheet = {
+monday: document.getElementById('monday').value,
+tuesday: document.getElementById('tuesday').value,
+wednesday: document.getElementById('wednesday').value,
+thursday: document.getElementById('thursday').value,
+friday: document.getElementById('friday').value,
+saturday: document.getElementById('saturday').value,
+sunday: document.getElementById('sunday').value,
+weekend: document.getElementById('weekend').value,
+id: 0,
+uid:  0,
+sid: 0
+};
+document.getElementById("addTimesheet").reset();
+$('#addModal').modal('hide');
+console.log("This is timesheet: " + JSON.stringify(timesheet));
+//use object mapper to access artist object
+let promise = axios.post('http://localhost:8080/punchcard/yourtime/addTimesheet/', timesheet);
+// 1 callback for a successfull response
+promise.then(function(response){
+list = response.data;
+//console.log("List:" + JSON.stringify(list));
+appendTimesheet(list);
+});
+//another callbak for a failed response
+promise.catch(function(response){
+    console.log("FAILED: " + response)}
+    );
+
+});
+/****************   WHEN ADDING NEW TIMESHEET ENDS    ***************/
+
+
+/****************  WHEN UPDATING TIMESHEET  ************************/
+
+/****************  WHEN UPDATING TIMESHEET ENDS ************************/
+
+
+
+/****************   GOING THROUGH THE LIST    ***************/
+function convertTimesheet(list){
+  i=0;
+    for (let timesheet of list){
+      appendTimesheet(timesheet);
+    }
+  }
+/****************   GOING THROUGH THE LIST ENDS    ***************/
+
+
+/****************   APPENDNG TO TABLE    ***************/
+  function appendTimesheet(timesheet){
+    let tr = document.createElement('tr');
+    let monday = document.createElement('td');
+    let tuesday = document.createElement('td');
+    let wednesday = document.createElement('td');
+    let thursday = document.createElement('td');
+    let friday = document.createElement('td');
+    let saturday = document.createElement('td');
+    let sunday = document.createElement('td');
+    let weekend = document.createElement('td');
+    let updateCell = document.createElement('td');
+    let updateBtn = document.createElement('a');
+    updateBtn.className = "updateBtn";
+    //updateBtn.style.pointerEvents="none";
+
+
+    
+    monday.innerText = timesheet.monday;
+    tuesday.innerText = timesheet.tuesday;
+    wednesday.innerText = timesheet.wednesday;
+    thursday.innerText = timesheet.thursday;
+    friday.innerText = timesheet.friday;
+    saturday.innerText = timesheet.saturday;
+    sunday.innerText = timesheet.sunday;
+    weekend.innerText = timesheet.weekEnd;
+    updateBtn.setAttribute('href', 'http://localhost:8080/punchcard/yourtime/updateTimesheet/?tid='+ timesheet.timesheetId);
+    updateBtn.innerText = "Update";
+    updateCell.appendChild(updateBtn);
+
+   
+    tr.appendChild(monday);
+    tr.appendChild(tuesday);
+    tr.appendChild(wednesday);
+    tr.appendChild(thursday);
+    tr.appendChild(friday);
+    tr.appendChild(saturday);
+    tr.appendChild(sunday);
+    tr.appendChild(weekend);
+    tr.appendChild(updateCell);
+    document.getElementById('list').appendChild(tr);
+}
+/****************   APPENDNG TO TABLE    ***************/
+
+
+
+</script>
 
 </html>

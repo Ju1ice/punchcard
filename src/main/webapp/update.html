@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://localhost:8080/punchcard/style.css">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <h1>Update Timesheet</h1>
+
+    <form id="updateTimesheet">
+            <input type="text" name="monday" id="monday" placeholder="Monday" />
+            <input type="text" name="tuesday" id="tuesday" placeholder="Tuesday" />
+            <input type="text" name="wednesday" id="wednesday" placeholder="Wednesday" />
+            <input type="text" name="thursday" id="thursday" placeholder="Thursday" />
+            <input type="text" name="friday" id="friday" placeholder="Friday" />
+            <input type="text" name="saturday" id="saturday" placeholder="Saturday" />
+            <input type="text" name="sunday" id="sunday" placeholder="Sunday" />
+            <input type="text" name="weekend" id="weekend" placeholder="Week End" />
+            <input type="submit" value="Update" />
+            </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
+</body>
+
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function(){
+    var url_string = window.location.href; //window.location.href
+var url = new URL(url_string);
+tid = url.searchParams.get("tid");
+console.log(tid);
+
+/***************************    GET RESPONSE TO POPULATE FORM    *************************************/
+//use object mapper to access timesheet object
+let promise = axios.get('/punchcard/yourtime/updateTimesheet/');
+// 1 callback for a successfull response
+promise.then(function(response){
+list = response.data;
+console.log("Response from FindOne:" + JSON.stringify(list));
+populateForm(list);
+});
+//another callbak for a failed response
+promise.catch(function(response){
+    console.log(response)});
+});
+/***************************    GET RESPONSE TO POPULATE FORM  ENDS   *************************************/
+
+
+
+/***************************    UPDATE TIMESHEET   *************************************/
+/****************   WHEN ADDING NEW TIMESHEET    ***************/
+document.getElementById("updateTimesheet").addEventListener('submit', function(e){
+e.preventDefault(); //stops expecting a new page
+let timesheet = {
+monday: document.getElementById('monday').value,
+tuesday: document.getElementById('tuesday').value,
+wednesday: document.getElementById('wednesday').value,
+thursday: document.getElementById('thursday').value,
+friday: document.getElementById('friday').value,
+saturday: document.getElementById('saturday').value,
+sunday: document.getElementById('sunday').value,
+weekend: document.getElementById('weekend').value,
+id: tid,
+uid:  0,
+sid: 0
+};
+
+console.log("This is timesheet we got from form: " + JSON.stringify(timesheet));
+//use object mapper to access artist object
+let promise = axios.post('http://localhost:8080/punchcard/yourtime/updateTimesheet/', timesheet);
+// 1 callback for a successfull response
+promise.then(function(response){
+
+console.log(response);
+    //console.log("List:" + JSON.stringify(list));
+});
+//another callbak for a failed response
+promise.catch(function(response){
+    console.log("FAILED: " + response)}
+    );
+
+});
+/***************************    UPDATE TIMESHEET  ENDS *************************************/
+
+
+
+function populateForm(timesheet){
+document.getElementById("monday").setAttribute('value', timesheet.monday);
+document.getElementById("tuesday").setAttribute('value', timesheet.tuesday);
+document.getElementById("wednesday").setAttribute('value', timesheet.wednesday);
+document.getElementById("thursday").setAttribute('value', timesheet.thursday);
+document.getElementById("friday").setAttribute('value', timesheet.friday);
+document.getElementById("saturday").setAttribute('value', timesheet.saturday);
+document.getElementById("sunday").setAttribute('value', timesheet.sunday);
+document.getElementById("weekend").setAttribute('value', timesheet.weekEnd);
+}
+
+
+  </script>
+</html>

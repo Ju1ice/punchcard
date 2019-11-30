@@ -1,18 +1,21 @@
 package com.skillstorm.beans;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Timesheet {
 	
-	private int timesheetId;
-	private int userId;
-	private int statusId;
-	private double monday;
-	private double tuesday;
-	private double wednesday;
-	private double thursday;
-	private double friday;
-	private double saturday;
-	private double sunday;
-	private double weekEnd;
+	private int timesheetId = 0;
+	private int userId = 0;
+	private int statusId = 0;
+	private double monday = 0;
+	private double tuesday = 0;
+	private double wednesday = 0;
+	private double thursday = 0;
+	private double friday = 0;
+	private double saturday = 0;
+	private double sunday = 0;
+	private int weekend = 0;
 	
 	
 		
@@ -21,9 +24,9 @@ public class Timesheet {
 		super();
 	}
 
-
-	public Timesheet(int timesheetId, int userId, int statusId, double monday, double tuesday, double wednesday,
-			double thursday, double friday, double saturday, double sunday, double weekEnd) {
+	@JsonCreator
+	public Timesheet( @JsonProperty("id")int timesheetId,  @JsonProperty("uid") int userId,  @JsonProperty("sid")int statusId, @JsonProperty("monday") double monday, @JsonProperty("tuesday") double tuesday, @JsonProperty("wednesday") double wednesday,
+			@JsonProperty("thursday") double thursday, @JsonProperty("friday") double friday,@JsonProperty("saturday") double saturday, @JsonProperty("sunday") double sunday, @JsonProperty("weekend") int weekend) {
 		super();
 		this.timesheetId = timesheetId;
 		this.userId = userId;
@@ -35,7 +38,7 @@ public class Timesheet {
 		this.friday = friday;
 		this.saturday = saturday;
 		this.sunday = sunday;
-		this.weekEnd = weekEnd;
+		this.weekend = weekend;
 	}
 	
 	
@@ -99,11 +102,11 @@ public class Timesheet {
 	public void setSunday(double sunday) {
 		this.sunday = sunday;
 	}
-	public double getWeekEnd() {
-		return weekEnd;
+	public int getWeekEnd() {
+		return weekend;
 	}
-	public void setWeekEnd(double weekEnd) {
-		this.weekEnd = weekEnd;
+	public void setWeekEnd(int weekend) {
+		this.weekend = weekend;
 	}
 	@Override
 	public int hashCode() {
@@ -117,8 +120,9 @@ public class Timesheet {
 	}
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return "Timesheet [timesheetId=" + timesheetId + ", userId=" + userId + ", statusId=" + statusId + ", monday="
+				+ monday + ", tuesday=" + tuesday + ", wednesday=" + wednesday + ", thursday=" + thursday + ", friday="
+				+ friday + ", saturday=" + saturday + ", sunday=" + sunday + ", weekend=" + weekend + "]";
 	}
 	
 	

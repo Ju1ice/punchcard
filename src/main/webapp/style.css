@@ -1,0 +1,24 @@
+.form-div{
+    display: flex;
+    height: 100vh;
+    width: 100%; 
+    align-items: center;
+    justify-content: center;
+}
+form input{
+    display: block;
+    width: 95%;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px gray solid;
+}
+form input:first-child{
+margin-top: 20px;
+}
+   
+form input:last-child{
+    margin-bottom: 20px;
+} 
+h1{
+display:block;	
+}
