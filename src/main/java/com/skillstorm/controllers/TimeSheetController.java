@@ -16,7 +16,7 @@ public class TimeSheetController {
 
 	public void getTimesheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int userId=((User)req.getSession().getAttribute("authuser")).getUserId();
-
+System.out.println("This is userID from authUser Session: " + userId);
 			resp.getWriter().println(new ObjectMapper()
 					.writeValueAsString(timesheetService.findById(userId)));
 

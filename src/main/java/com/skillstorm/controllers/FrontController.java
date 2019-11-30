@@ -30,8 +30,8 @@ public class FrontController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		if(req.getRequestURI().contains("/punchcard/yourtime/timesheets/")) {
 			System.out.println("GET GET GET");
-			TimesheetDAO dao = new TimesheetDAO();
-			User authUser = new User();
+			//TimesheetDAO dao = new TimesheetDAO();
+			//User authUser = new User();
 			timeSheetController.getTimesheet(req, res);
 		}
 		else if(req.getRequestURI().contains("/punchcard/yourtime/updateTimesheet/")) {
@@ -61,6 +61,7 @@ System.out.println("You are in addTimesheet in doPost");
 		else if(req.getRequestURI().contains("/punchcard/yourtime/updateTimesheet")) {
 			System.out.println("You are in updateTimesheet in doPost");
 			timeSheetController.updateTimesheet(req, res);
+
 		}
 		else if(req.getRequestURI().contains("/punchcard/yourtime/")) {
 			String uri = req.getRequestURI();

@@ -26,6 +26,20 @@
             <input type="submit" value="Update" />
             </form>
 
+
+            <!-- MODAL WITH ADD TIMESHEET FORM  -->
+      <div class="modal fade bd-example-modal-lg" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+<h1>Success</h1>
+<p>Your timesheet has been updated.</p>
+<form id="view" action="/punchcard/yourtime/" method="post" >
+    <input type="submit" value="VIEW" />
+</form>              </div>
+            </div>
+          </div>
+  <!-- MODAL WITH ADD TIMESHEET FORM ENDS -->
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -82,9 +96,13 @@ console.log("This is timesheet we got from form: " + JSON.stringify(timesheet));
 let promise = axios.post('http://localhost:8080/punchcard/yourtime/updateTimesheet/', timesheet);
 // 1 callback for a successfull response
 promise.then(function(response){
+    $('#viewModal').modal('show');
+
+
 
 console.log(response);
-    //console.log("List:" + JSON.stringify(list));
+
+
 });
 //another callbak for a failed response
 promise.catch(function(response){

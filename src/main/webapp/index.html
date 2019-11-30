@@ -99,7 +99,7 @@ let promise = axios.get('http://localhost:8080/punchcard/yourtime/timesheets/');
 // 1 callback for a successfull response
 promise.then(function(response){
 list = response.data;
-//console.log("List:" + JSON.stringify(list));
+console.log("List:" + JSON.stringify(list));
 convertTimesheet(list);
 });
 //another callbak for a failed response
