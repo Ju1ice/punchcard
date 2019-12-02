@@ -7,7 +7,7 @@
 	
 	<display-name>punchcard</display-name>
 		<welcome-file-list>
-		<welcome-file>/login.html</welcome-file>
+		<welcome-file>/main.html</welcome-file>
 	</welcome-file-list>
 	
 	<!--  Front Controller	 -->
@@ -30,7 +30,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>auth</filter-name>
-		<url-pattern>/yourtime/</url-pattern>
+		<url-pattern>/login.html</url-pattern>
 	</filter-mapping> 
 -->
 	

@@ -28,11 +28,33 @@ public class FrontController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		if(req.getRequestURI().contains("/punchcard/yourtime/timesheets/")) {
+		if(req.getRequestURI().contains("/punchcard/login.html")){
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.html");
+			dispatcher.forward(req, res);
+		}
+		else if(req.getRequestURI().contains("/punchcard/main.html")){
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/main.html");
+			dispatcher.forward(req, res);
+		}
+		else if(req.getRequestURI().contains("/punchcard/yourtime/timesheets/")) {
 			System.out.println("GET GET GET");
 			//TimesheetDAO dao = new TimesheetDAO();
 			//User authUser = new User();
 			timeSheetController.getTimesheet(req, res);
+		}
+		else if(req.getRequestURI().contains("/punchcard/yourtime/deleteTimesheet")) {
+			System.out.println("You are in deleteTimesheet in doGet");
+			timeSheetController.deleteTimesheet(req, res);
+			System.out.println("Sysout delete tid" + req.getParameter("tid") );
+
+		}
+		else if (req.getRequestURI().contains("/punchcard/yourtime/logout/")) {
+			HttpSession session = req.getSession(false);
+			if (session != null) {
+			    session.invalidate();
+			}
+			res.sendRedirect("/punchcard/login.html");
+		    return; // <--- Here.
 		}
 		else if(req.getRequestURI().contains("/punchcard/yourtime/updateTimesheet/")) {
 			System.out.println("You are here: Update Timesheet in Front Controller");

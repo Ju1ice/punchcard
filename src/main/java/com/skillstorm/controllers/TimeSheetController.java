@@ -33,6 +33,18 @@ System.out.println("This is userID from authUser Session: " + userId);
 		resp.setStatus(201);
 	}
 	
+	public void deleteTimesheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int tid = 0;
+		if (req.getParameter("tid") != null) {
+		 tid =Integer.parseInt( (String)req.getParameter("tid"));
+		}
+		System.out.println("This is tid for delete: " +tid);
+		timesheetService.deleteTimesheet(tid);
+		resp.getWriter().println("SUCCESS Deleting");
+
+
+	}
+	
 	public void updateTimesheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int tid = Integer.parseInt((String) req.getSession().getAttribute("tid"));
 		System.out.println("This is tid: " +tid);

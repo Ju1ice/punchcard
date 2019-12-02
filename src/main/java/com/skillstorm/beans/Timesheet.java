@@ -15,7 +15,7 @@ public class Timesheet {
 	private double friday = 0;
 	private double saturday = 0;
 	private double sunday = 0;
-	private int weekend = 0;
+	private long weekend = 0;
 	
 	
 		
@@ -26,7 +26,7 @@ public class Timesheet {
 
 	@JsonCreator
 	public Timesheet( @JsonProperty("id")int timesheetId,  @JsonProperty("uid") int userId,  @JsonProperty("sid")int statusId, @JsonProperty("monday") double monday, @JsonProperty("tuesday") double tuesday, @JsonProperty("wednesday") double wednesday,
-			@JsonProperty("thursday") double thursday, @JsonProperty("friday") double friday,@JsonProperty("saturday") double saturday, @JsonProperty("sunday") double sunday, @JsonProperty("weekend") int weekend) {
+			@JsonProperty("thursday") double thursday, @JsonProperty("friday") double friday,@JsonProperty("saturday") double saturday, @JsonProperty("sunday") double sunday, @JsonProperty("weekend") long weekend) {
 		super();
 		this.timesheetId = timesheetId;
 		this.userId = userId;
@@ -102,10 +102,10 @@ public class Timesheet {
 	public void setSunday(double sunday) {
 		this.sunday = sunday;
 	}
-	public int getWeekEnd() {
+	public long getWeekEnd() {
 		return weekend;
 	}
-	public void setWeekEnd(int weekend) {
+	public void setWeekEnd(long weekend) {
 		this.weekend = weekend;
 	}
 	@Override

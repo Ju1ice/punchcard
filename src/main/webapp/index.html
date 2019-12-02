@@ -1,21 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://localhost:8080/punchcard/style.css">
-    <title>Hello, world!</title>
-  </head>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Punchcard Project</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+  table.table thead th{
+    font-size: 0.8rem;
+  }
+  input.form-control{
+    margin: 10px auto;
+    width: 90%;
+  }
+  .updateBtn:hover, .deleteBtn:hover, .addTimeBtn:hover{
+    background-color: darkorange;
+  }
+</style>
+</head>
   <body>
+    <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="/punchcard/main.html"><img src="https://i.imgur.com/8KpBFYq.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/punchcard/main.html">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+                  <a class="nav-link" href="/punchcard/main.html#services">Services</a>
+                </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/punchcard/main.html#about">About</a>
+            </li>
+  <li class="nav-item">
+              <a class="nav-link" href="" id="myTimesheetsLink">My Timesheets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/punchcard/yourtime/logout/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="alert alert-success alert-dismissible collapse text-center" id="successAlert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Your Timesheet Has Been Added Successfully.
+      </div>
       <div class="container">
           <div class="row">
               <div class="col-sm">
-    <h1>Hello, world!</h1>
-    <table class="table table-bordered">
+     <h2 class="text-center" style="margin-top: 40px; margin-bottom: 20px;">Add New Timesheet <span id="namespan"></span></h2>
+     <button type="button"  class="btn  btn-dark addTimeBtn" data-toggle="modal" data-target="#addModal" style="display: block; width: 80%; margin: auto; margin-bottom: 50px;">Add Timesheet</button>
+    <h2 class="p-4 text-center">Your Timesheets <span id="namespan"></span></h2>
+    <table class="table table-bordered table-striped text-center">
         <thead class="thead-dark">
           <tr>
             <th scope="col">Monday</th>
@@ -25,7 +77,8 @@
             <th scope="col">Friday</th>
             <th scope="col">Saturday</th>
             <th scope="col">Sunday</th>
-            <th scope="col">Week End</th>
+            <th scope="col">Ending Date</th>
+            <th scope="col">Total Hours</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -40,36 +93,63 @@
             <td>Otto</td>
             <td>@mdo</td>
             <td>@mdo</td>
+            <td>@mdo</td>
           </tr>
         </tbody>
       </table>
 
 
-      <button type="button" class="btn  btn-dark" data-toggle="modal" data-target=".bd-example-modal-lg">Add Timesheet</button>
 <!-- MODAL WITH ADD TIMESHEET FORM  -->
       <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h2 class="text-center">Please Enter Your Hours</h2>
 <form id="addTimesheet">
-<input type="text" name="monday" id="monday" placeholder="Monday" />
-<input type="text" name="tuesday" id="tuesday" placeholder="Tuesday" />
-<input type="text" name="wednesday" id="wednesday" placeholder="Wednesday" />
-<input type="text" name="thursday" id="thursday" placeholder="Thursday" />
-<input type="text" name="friday" id="friday" placeholder="Friday" />
-<input type="text" name="saturday" id="saturday" placeholder="Saturday" />
-<input type="text" name="sunday" id="sunday" placeholder="Sunday" />
-<input type="text" name="weekend" id="weekend" placeholder="Week End" />
-<input type="submit" value="Add Timesheet" />
+<input type="number" min="0" max="12" name="monday" id="monday" placeholder="Monday" class="form-control" />
+<input type="number" min="0" max="12" name="tuesday" id="tuesday" placeholder="Tuesday" class="form-control" />
+<input type="number" min="0" max="12" name="wednesday" id="wednesday" placeholder="Wednesday" class="form-control" />
+<input type="number" min="0" max="12" name="thursday" id="thursday" placeholder="Thursday" class="form-control"/>
+<input type="number" min="0" max="12" name="friday" id="friday" placeholder="Friday" class="form-control"/>
+<input type="number" min="0" max="12" name="saturday" id="saturday" placeholder="Saturday" class="form-control" />
+<input type="number" min="0" max="12" name="sunday" id="sunday" placeholder="Sunday" class="form-control" />
+<input type="date" name="weekend" id="weekend" placeholder="Week Ending Date" class="form-control" />
+<input type="submit" value="Add Timesheet" class="btn btn-dark" style="margin: auto; display: block;" />
 </form>
             </div>
           </div>
         </div>
 <!-- MODAL WITH ADD TIMESHEET FORM ENDS -->
 
-      </div>
-    </div>
-</div>
 
+
+<!-- MODAL WITH DELETE TIMESHEET FORM  -->
+      <div class="modal bd-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content p-4 text-center">
+                <h2>Please Confirm</h2>
+                <p>Are you sure you want to delete selected timesheet?</p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" id="deleteBtnModal">Delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+            </div>
+          </div>
+        </div>
+<!-- MODAL WITH DELETE TIMESHEET FORM ENDS -->
+
+
+<!-- MODAL WITH DELETE CONFIRM-->
+      <div class="modal fade bd-example-modal-lg" id="viewDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content p-4 text-center">
+          <h1>Well Done</h1>
+        <p>Your Timesheet Has Been Deleted Successfully.</p>
+          <form id="view" action="/punchcard/yourtime/" method="post" >
+    <input type="submit" value="VIEW" class="btn btn-dark"/>
+</form>              </div>
+            </div>
+          </div>
+<!-- MODAL WITH DELETE CONFIRM ENDS -->
 
 
 
@@ -101,6 +181,7 @@ promise.then(function(response){
 list = response.data;
 console.log("List:" + JSON.stringify(list));
 convertTimesheet(list);
+deletedTime();
 });
 //another callbak for a failed response
 promise.catch(function(response){
@@ -112,6 +193,7 @@ promise.catch(function(response){
 /****************   WHEN ADDING NEW TIMESHEET    ***************/
 document.getElementById("addTimesheet").addEventListener('submit', function(e){
 e.preventDefault(); //stops expecting a new page
+var date1 = new Date(document.getElementById("weekend").value);
 let timesheet = {
 monday: document.getElementById('monday').value,
 tuesday: document.getElementById('tuesday').value,
@@ -120,7 +202,7 @@ thursday: document.getElementById('thursday').value,
 friday: document.getElementById('friday').value,
 saturday: document.getElementById('saturday').value,
 sunday: document.getElementById('sunday').value,
-weekend: document.getElementById('weekend').value,
+weekend: date1.getTime(),
 id: 0,
 uid:  0,
 sid: 0
@@ -135,6 +217,7 @@ promise.then(function(response){
 list = response.data;
 //console.log("List:" + JSON.stringify(list));
 appendTimesheet(list);
+$('#successAlert').show();
 });
 //another callbak for a failed response
 promise.catch(function(response){
@@ -145,9 +228,46 @@ promise.catch(function(response){
 /****************   WHEN ADDING NEW TIMESHEET ENDS    ***************/
 
 
-/****************  WHEN UPDATING TIMESHEET  ************************/
+/****************  WHEN DELETING TIMESHEET  ************************/
+function deletedTime(){
+  let elementsArray = document.getElementsByClassName("deleteBtn");
+Array.from(elementsArray).forEach((el) => {
+    el.addEventListener("click", function() {
+      deleteLinkToSend2 = el.getAttribute('data-deletelink');
+var url = new URL(deleteLinkToSend2);
+deleteLinkToSend = url.searchParams.get("tid");
+      console.log("Deleted link in deletedTime(): "+deleteLinkToSend)
+    });
+});
 
-/****************  WHEN UPDATING TIMESHEET ENDS ************************/
+document.getElementById("deleteBtnModal").addEventListener('click', function(e){
+e.preventDefault();
+console.log("We are in delete modal");
+//use object mapper to access artist object      
+console.log("Deleted link in promise: "+deleteLinkToSend)
+let promise = axios.get('http://localhost:8080/punchcard/yourtime/deleteTimesheet/?tid='+deleteLinkToSend);
+// 1 callback for a successfull response
+promise.then(function(response){
+  $('#deleteModal').modal('hide');
+  $('#viewDeleteModal').modal('show');
+});
+//another callbak for a failed response
+promise.catch(function(response){
+    console.log("FAILED: " + response)}
+    );
+
+});
+}
+
+
+
+
+
+
+
+
+
+/****************  WHEN DELETING TIMESHEET ENDS ************************/
 
 
 
@@ -171,10 +291,13 @@ function convertTimesheet(list){
     let friday = document.createElement('td');
     let saturday = document.createElement('td');
     let sunday = document.createElement('td');
+    let total = document.createElement('td');
     let weekend = document.createElement('td');
     let updateCell = document.createElement('td');
     let updateBtn = document.createElement('a');
-    updateBtn.className = "updateBtn";
+    let deleteBtn = document.createElement('a');
+    updateBtn.className = "updateBtn btn btn-dark";
+    deleteBtn.className = "deleteBtn btn btn-dark";
     //updateBtn.style.pointerEvents="none";
 
 
@@ -186,10 +309,21 @@ function convertTimesheet(list){
     friday.innerText = timesheet.friday;
     saturday.innerText = timesheet.saturday;
     sunday.innerText = timesheet.sunday;
-    weekend.innerText = timesheet.weekEnd;
+    total.innerText = parseFloat(monday.innerText) + parseFloat(tuesday.innerText) + parseFloat(wednesday.innerText) + parseFloat(thursday.innerText) + parseFloat(friday.innerText) + parseFloat(saturday.innerText) + parseFloat(sunday.innerText) + " Hours";
+    var date = new Date(timesheet.weekEnd);
+    weekend.innerText = (date.getUTCMonth()+1) +"/"+date.getUTCDate()+"/"+date.getUTCFullYear();
+    //weekend.innerText = date.toISOString().slice(0, 19).replace(/-/g, "/").replace("T", " ");;
     updateBtn.setAttribute('href', 'http://localhost:8080/punchcard/yourtime/updateTimesheet/?tid='+ timesheet.timesheetId);
+    updateBtn.setAttribute('style', 'margin-right:10px');
+    deleteBtn.setAttribute('data-toggle', 'modal');
+    deleteBtn.setAttribute('href', '#');
+    deleteBtn.setAttribute('data-target', '#deleteModal');
+    deleteBtn.setAttribute('data-deletelink', 'http://localhost:8080/punchcard/yourtime/deleteTimesheet/?tid='+ timesheet.timesheetId);
+ 
+
     updateBtn.innerText = "Update";
-    updateCell.appendChild(updateBtn);
+    deleteBtn.innerText = "Delete";
+    updateCell.append(updateBtn, deleteBtn);
 
    
     tr.appendChild(monday);
@@ -200,6 +334,7 @@ function convertTimesheet(list){
     tr.appendChild(saturday);
     tr.appendChild(sunday);
     tr.appendChild(weekend);
+    tr.appendChild(total);
     tr.appendChild(updateCell);
     document.getElementById('list').appendChild(tr);
 }

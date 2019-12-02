@@ -44,37 +44,12 @@ public class AuthFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 
-		if (req.getSession().getAttribute("username") != null) {
-			//res.sendRedirect("/yourtime");
-			System.out.println("Session is not null");
-			System.out.println("This is what recieve in AuthFilter Username: "  + req.getParameter("username"));
-			System.out.println("This is what recieve in AuthFilter Password: "  + req.getParameter("password"));
-
-			chain.doFilter(req, response);
-		}
+		if (req.getSession().getAttribute("authuser") != null) {
+			res.sendRedirect("/punchcard/youtime/index.html");	
+			return;
+			}
 		else {
-		TimesheetDAO dao = new TimesheetDAO();
-		User authUser = new User();
-		String username = request.getParameter("username");
-		//System.out.println("Username: " + username);
-		String password = request.getParameter("password");
-		//System.out.println("Password: " + password);		
-		authUser = dao.checkUser(username, password);
-		if(authUser!=null) {		
-		//System.out.println("Auth User: " + authUser.getUsername());
-		//System.out.println("Auth User Password: " + authUser.getPassword());
-		System.out.println("*************\n Auth User Object: " + authUser+"\n"+ username + " " +password + "\n***************");
-		//Obtain the session object, create a new session if doesn't exist
-		HttpSession session = req.getSession(true);
-		//set a string session attribute
-		session.setAttribute("username", username);
-		chain.doFilter(req, response);
-		}
-		else {
-			//System.out.println("This is the type of request: " + req.getMethod());
-			System.out.println("This received in AuthFilter session: "  + req.getParameter("username"));
-			res.sendRedirect("login.html");
-		}
+				chain.doFilter(request, response);
 		}
 		
 		

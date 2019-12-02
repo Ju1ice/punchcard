@@ -1,45 +1,118 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://localhost:8080/punchcard/style.css">
+<head>
 
-    <title>Hello, world!</title>
-  </head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Punchcard Project</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+.main-cont{
+  max-width: 600px;
+}
+.btn{
+  display: block;
+  margin: auto;
+}
+  .btn:hover{
+    background-color: darkorange;
+  }
+  form#updateTimesheet{
+        border: 2px solid;
+    padding: 30px 60px;
+    margin-bottom: 40px;
+}
+  
+</style>
+</head>
   <body>
-    <h1>Update Timesheet</h1>
+    <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <div class="container">
+        <a class="navbar-brand" href="/punchcard/main.html"><img src="https://i.imgur.com/8KpBFYq.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/punchcard/main.html">Home
+              </a>
+            </li>
+            <li class="nav-item">
+                  <a class="nav-link" href="/punchcard/main.html#services">Services</a>
+                </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/punchcard/main.html#about">About</a>
+            </li>
+ 
+            <li class="nav-item">
+              <a class="nav-link" href="/punchcard/yourtime/logout/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container main-cont">
+    <h1 class="p-4 text-center">Update Timesheet</h1>
 
     <form id="updateTimesheet">
-            <input type="text" name="monday" id="monday" placeholder="Monday" />
-            <input type="text" name="tuesday" id="tuesday" placeholder="Tuesday" />
-            <input type="text" name="wednesday" id="wednesday" placeholder="Wednesday" />
-            <input type="text" name="thursday" id="thursday" placeholder="Thursday" />
-            <input type="text" name="friday" id="friday" placeholder="Friday" />
-            <input type="text" name="saturday" id="saturday" placeholder="Saturday" />
-            <input type="text" name="sunday" id="sunday" placeholder="Sunday" />
-            <input type="text" name="weekend" id="weekend" placeholder="Week End" />
-            <input type="submit" value="Update" />
+        <div class="form-group">
+        <label for="monday">Monday</label>
+            <input type="number" min="0" max="12" name="monday" id="monday" placeholder="Monday" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="tuesday">Tuesday</label>
+            <input type="number" min="0" max="12" name="tuesday" id="tuesday" placeholder="Tuesday" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="wednesday">Wednesday</label>
+            <input type="number" min="0" max="12" name="wednesday" id="wednesday" placeholder="Wednesday" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="thursday">Thursday</label>
+            <input type="number" min="0" max="12" name="thursday" id="thursday" placeholder="Thursday" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="friday">Friday</label>
+            <input type="number" min="0" max="12" name="friday" id="friday" placeholder="Friday" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="saturday">Saturday</label>
+            <input type="number" min="0" max="12" name="saturday" id="saturday" placeholder="Saturday" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="Sunday">Sunday</label>
+            <input type="number" min="0" max="12" name="sunday" id="sunday" placeholder="Sunday" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="weekend">Week Ending Date</label>
+            <input type="date" name="weekend" id="weekend" placeholder="Week Ending Date" class="form-control"/>
+            </div>
+            <input type="submit" value="Update" class="btn btn-dark"/>
             </form>
 
 
             <!-- MODAL WITH ADD TIMESHEET FORM  -->
-      <div class="modal fade bd-example-modal-lg" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-<h1>Success</h1>
-<p>Your timesheet has been updated.</p>
-<form id="view" action="/punchcard/yourtime/" method="post" >
-    <input type="submit" value="VIEW" />
+      <div class="modal fade bd-example-modal-lg" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content p-4 text-center">
+          <h1>Well Done</h1>
+        <p>Your Timesheet Has Been Updated Successfully.</p>
+          <form id="view" action="/punchcard/yourtime/" method="post" >
+    <input type="submit" value="VIEW" class="btn btn-dark"/>
 </form>              </div>
             </div>
           </div>
   <!-- MODAL WITH ADD TIMESHEET FORM ENDS -->
-
+</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -77,6 +150,7 @@ promise.catch(function(response){
 /****************   WHEN ADDING NEW TIMESHEET    ***************/
 document.getElementById("updateTimesheet").addEventListener('submit', function(e){
 e.preventDefault(); //stops expecting a new page
+var date1 = new Date(document.getElementById("weekend").value);
 let timesheet = {
 monday: document.getElementById('monday').value,
 tuesday: document.getElementById('tuesday').value,
@@ -85,7 +159,7 @@ thursday: document.getElementById('thursday').value,
 friday: document.getElementById('friday').value,
 saturday: document.getElementById('saturday').value,
 sunday: document.getElementById('sunday').value,
-weekend: document.getElementById('weekend').value,
+weekend: date1.getTime(),
 id: tid,
 uid:  0,
 sid: 0
@@ -122,9 +196,8 @@ document.getElementById("thursday").setAttribute('value', timesheet.thursday);
 document.getElementById("friday").setAttribute('value', timesheet.friday);
 document.getElementById("saturday").setAttribute('value', timesheet.saturday);
 document.getElementById("sunday").setAttribute('value', timesheet.sunday);
-document.getElementById("weekend").setAttribute('value', timesheet.weekEnd);
+document.getElementById("weekend").setAttribute('value', (new Date(timesheet.weekEnd).toISOString().substr(0, 10)));
 }
-
 
   </script>
 </html>

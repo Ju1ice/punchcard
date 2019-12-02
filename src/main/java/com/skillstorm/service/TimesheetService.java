@@ -22,6 +22,10 @@ public class TimesheetService {
 	public void updateTimesheet(Timesheet t, int tid) {
 		 timesheetDAO.updateTimesheet(t, tid);
 	}
+	public void	deleteTimesheet(int tid) {
+		 timesheetDAO.deleteTimesheet(tid);
+	}
+
 
 	public Timesheet findOne(int tid) {
 		return timesheetDAO.findOne(tid);

@@ -60,7 +60,7 @@ public class TimesheetDAO implements TimesheetDAOInterface{
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
 					Timesheet a = new Timesheet(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getDouble(4), rs.getDouble(5), rs.getDouble(6),
-							rs.getDouble(7), rs.getDouble(8), rs.getDouble(9), rs.getDouble(10), rs.getInt(11));
+							rs.getDouble(7), rs.getDouble(8), rs.getDouble(9), rs.getDouble(10), rs.getLong(11));
 					results.add(a);
 				}
 			} catch (SQLException e) {
@@ -90,7 +90,7 @@ public class TimesheetDAO implements TimesheetDAOInterface{
 			stmt.setDouble(7, t.getFriday());
 			stmt.setDouble(8, t.getSaturday());
 			stmt.setDouble(9, t.getSunday());
-			stmt.setInt(10, t.getWeekEnd());
+			stmt.setLong(10, t.getWeekEnd()/1000);
 			stmt.executeUpdate();
 			ResultSet keys = stmt.getGeneratedKeys();
 			while (keys.next()) {
@@ -123,7 +123,7 @@ public class TimesheetDAO implements TimesheetDAOInterface{
 			stmt.setDouble(5, t.getFriday());
 			stmt.setDouble(6, t.getSaturday());
 			stmt.setDouble(7, t.getSunday());
-			stmt.setInt(8, t.getWeekEnd());
+			stmt.setLong(8, t.getWeekEnd());
 			stmt.setInt(9, tid);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -146,7 +146,7 @@ public class TimesheetDAO implements TimesheetDAOInterface{
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			 t = new Timesheet(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getDouble(4), rs.getDouble(5), rs.getDouble(6),
-						rs.getDouble(7), rs.getDouble(8), rs.getDouble(9), rs.getDouble(10), rs.getInt(11));		
+						rs.getDouble(7), rs.getDouble(8), rs.getDouble(9), rs.getDouble(10), rs.getLong(11));		
 			 System.out.println("This is timesheet from constructor in find one: " + t);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -158,6 +158,25 @@ public class TimesheetDAO implements TimesheetDAOInterface{
 			}
 		}
 		return t;
+	}
+
+	public void deleteTimesheet(int tid) {
+		System.out.println("We got to deleteTimesheet DAO: " + tid);
+
+		Connection conn = getConnection(); 
+		try { String sql ="DELETE from timesheets WHERE t_id = ? "; 
+		PreparedStatement stmt = conn.prepareStatement(sql); stmt.setInt(1, tid); stmt.executeUpdate(); }
+		catch (SQLException e) 
+		{ throw new RuntimeException(e); }
+		finally { 
+			try {
+			conn.close(); 
+			} catch (SQLException e) { 
+				throw new RuntimeException(e); 
+				} 
+			}
+		 
+		
 	}
 	
 
